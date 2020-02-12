@@ -45,21 +45,28 @@ public class CurdImplementation implements Curd {
     public CtcDto ctc_page(Long ctc, String state, String ecode) throws UserNotRegistered {
 
         if (ctcRepository.existsById(ecode)) {
-
             ModelAndView mv = new ModelAndView();
             System.out.println("1");
             //  Long ctc = Long.parseLong(ctc_got);
             System.out.println("2");
             ctcDto = ctcRepository.findById(ecode).orElse(null);
+            System.out.println(ctcDto+"dfdfdfdfdsfs");
             System.out.println("2.1");
-            assert ctcDto != null;
+//            assert ctcDto != null;                                 //change on 12th feb during testing commented
+            System.out.println("2.2");
+            //System.out.println(ctcDto.getEname()+"dfdfdfdf");
+            System.out.println(ctcDto);
+            System.out.println(ctcDto.getEname());
             String ename = ctcDto.getEname();  // changes
+            System.out.println("2.3");
             System.out.println(ename);
+            System.out.println("2.4");
             ctcDto.setEname(ename);
             ctcDto.setCtc(ctc);
             ctcDto.setLoc(state);
             ctcDto.setState(state);
             System.out.println("3");
+
             BranchDto branchDto = branchRepository.findById(state).orElse(null);
 
 

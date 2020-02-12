@@ -74,4 +74,5 @@ public class CtcDto {
 
     public CtcDto() {
     }
+
 }
