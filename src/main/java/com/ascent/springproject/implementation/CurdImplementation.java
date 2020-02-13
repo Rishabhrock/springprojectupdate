@@ -1,5 +1,6 @@
 package com.ascent.springproject.implementation;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.ascent.springproject.exception.UserAlreadyExits;
 import com.ascent.springproject.exception.UserNotRegistered;
 import com.ascent.springproject.model.BranchDto;
@@ -28,7 +29,7 @@ public class CurdImplementation implements Curd {
 
     @Override
     public CtcDto newUser(String Ename, String Ecode) throws UserAlreadyExits {
-
+        System.out.println(ctcRepository.existsById(Ecode));
         if (ctcRepository.existsById(Ecode)) {
             throw new UserAlreadyExits("Employee with this Ecode already existed");
         } else {
@@ -47,12 +48,15 @@ public class CurdImplementation implements Curd {
         if (ctcRepository.existsById(ecode)) {
             ModelAndView mv = new ModelAndView();
             System.out.println("1");
-            //  Long ctc = Long.parseLong(ctc_got);
+
             System.out.println("2");
             ctcDto = ctcRepository.findById(ecode).orElse(null);
-            System.out.println(ctcDto+"dfdfdfdfdsfs");
+         //   CtcDto ctcDto = new CtcDto();
+          //  CtcDto ctcDto;
+
+            System.out.println(ctcDto + "ctcDto Reference");
             System.out.println("2.1");
-//            assert ctcDto != null;                                 //change on 12th feb during testing commented
+            assert ctcDto != null;                                 //change on 12th feb during testing commented
             System.out.println("2.2");
             //System.out.println(ctcDto.getEname()+"dfdfdfdf");
             System.out.println(ctcDto);
@@ -133,10 +137,8 @@ public class CurdImplementation implements Curd {
 
         if (ctcRepository.existsById(ecode)) {
 
-            System.out.println("inside findUserDetails");
-//        dataBaseRepo.findById(ecode);
-            CtcDto ctcDto = ctcRepository.getOne(ecode);
-            return ctcDto;
+            return ctcRepository.findByEcode(ecode);
+            //previously i was using  T getOne(ID var1); now changed to custom query
         } else {
             throw new UserNotRegistered("User is not Registed in portal");
         }
