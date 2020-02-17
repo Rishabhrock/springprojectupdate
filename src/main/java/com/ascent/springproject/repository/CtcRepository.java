@@ -4,7 +4,7 @@ import com.ascent.springproject.model.CtcDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface CtcRepository extends JpaRepository<CtcDto,String> {
+public interface CtcRepository extends JpaRepository<CtcDto, String> {
 
 
     CtcDto findByEcode(String Ecode);

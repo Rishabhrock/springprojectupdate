@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class DomainImplementation implements Domain {
 
 
-    public Long basic_ctc(Long ctc, Long min_wage) {
+    public Long basicCtc(Long ctc, Long min_wage) {
 
         long basic;
 //        Long min_wage_session = min_wage;
@@ -32,7 +32,7 @@ public class DomainImplementation implements Domain {
     }
 
 
-    public Long bonus_ctc(Long basic) {
+    public Long bonusCtc(Long basic) {
 
         return (Math.round(basic * 8.33 / 100));
     }
@@ -46,20 +46,20 @@ public class DomainImplementation implements Domain {
     //   Employer pf
 
 
-    public Long employer_pf_contribution(Long basic) {
+    public Long employerPfContribution(Long basic) {
 
         return (long) Math.round(basic * 12 / 100);
     }
 
     //   Gratuity
 
-    public Long gratuity_from_ctc(Long basic) {
+    public Long gratuityFromCtc(Long basic) {
         return Math.round((basic * 4.81 / 100));
     }
 
     //    Gross
 
-    public Long gross_total(Long ctc, Long employer_pf, Long gratuity) {
+    public Long grossTotal(Long ctc, Long employer_pf, Long gratuity) {
 
         return (long) (int) Math.round((ctc - (employer_pf + gratuity)) / (1 + 0.0475));
     }
@@ -68,7 +68,7 @@ public class DomainImplementation implements Domain {
     //  Employer ESI
 
 
-    public Long employer_esi_contribution(Long gross) {
+    public Long employerEsiContribution(Long gross) {
         return Math.round((gross * 4.75 / 100));
     }
 
@@ -83,7 +83,7 @@ public class DomainImplementation implements Domain {
 
     // Employee pf
 
-    public Long employee_pf_contribution(Long basic) {
+    public Long employeePfContribution(Long basic) {
         //int basic_got = basic;
         return (long) Math.round((basic * 12 / 100));
     }
@@ -91,7 +91,7 @@ public class DomainImplementation implements Domain {
     //Employee ESI
 
 
-    public Long employee_esi_contribution(Long gross) {
+    public Long employeeEsiContribution(Long gross) {
         return Math.round((gross * 1.75 / 100));
     }
 
@@ -111,7 +111,7 @@ public class DomainImplementation implements Domain {
 ////            #########################################################################
 
 
-    public Long homerentallowance(Long basic, Long bonus_got, Long gross_ded, Long netpay_got, Long HRA_PERCENT) {
+    public Long homeRentAllowance(Long basic, Long bonus_got, Long gross_ded, Long netpay_got, Long HRA_PERCENT) {
         long hra_inter_if;
         long hra;
 
@@ -162,7 +162,7 @@ public class DomainImplementation implements Domain {
 ////            #########################################################################
 
 
-    public Long nettakehome(Long gross, Long gross_ded) {
+    public Long netTakeHome(Long gross, Long gross_ded) {
 
         return gross - gross_ded;
     }
@@ -182,7 +182,7 @@ public class DomainImplementation implements Domain {
 ////                                            Pt Gross
 ////            #########################################################################
 
-    public Long ptgross(Long netpay, Long gross_ded) {
+    public Long ptGross(Long netpay, Long gross_ded) {
         return netpay + gross_ded;
 
     }

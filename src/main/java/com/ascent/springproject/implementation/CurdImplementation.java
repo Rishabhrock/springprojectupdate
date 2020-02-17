@@ -54,8 +54,8 @@ public class CurdImplementation implements Curd {
 
             System.out.println("2");
             ctcDto = ctcRepository.findById(ecode).orElse(null);
-         //   CtcDto ctcDto = new CtcDto();
-          //  CtcDto ctcDto;
+            //   CtcDto ctcDto = new CtcDto();
+            //  CtcDto ctcDto;
 
             System.out.println(ctcDto + "ctcDto Reference");
             System.out.println("2.1");
@@ -80,20 +80,20 @@ public class CurdImplementation implements Curd {
             System.out.println(branchDto);
             System.out.println("4");
             assert branchDto != null;
-            Long basic_ctc = domainImplementation.basic_ctc(ctc, branchDto.getMinimum_wages());
-            Long bonus_ctc = domainImplementation.bonus_ctc(basic_ctc);
-            Long employer_pf_contribution = domainImplementation.employer_pf_contribution(basic_ctc);
-            Long gratuity_from_ctc = domainImplementation.gratuity_from_ctc(basic_ctc);
-            Long grossTotal = domainImplementation.gross_total(ctc, employer_pf_contribution, gratuity_from_ctc);
-            Long employer_esi_contribution = domainImplementation.employer_esi_contribution(grossTotal);
-            Long employee_pf_contribution = domainImplementation.employee_pf_contribution(basic_ctc);
-            Long employee_esi_contribution = domainImplementation.employee_esi_contribution(grossTotal);
+            Long basic_ctc = domainImplementation.basicCtc(ctc, branchDto.getMinimum_wages());
+            Long bonus_ctc = domainImplementation.bonusCtc(basic_ctc);
+            Long employer_pf_contribution = domainImplementation.employerPfContribution(basic_ctc);
+            Long gratuity_from_ctc = domainImplementation.gratuityFromCtc(basic_ctc);
+            Long grossTotal = domainImplementation.grossTotal(ctc, employer_pf_contribution, gratuity_from_ctc);
+            Long employer_esi_contribution = domainImplementation.employerEsiContribution(grossTotal);
+            Long employee_pf_contribution = domainImplementation.employeePfContribution(basic_ctc);
+            Long employee_esi_contribution = domainImplementation.employeeEsiContribution(grossTotal);
             Long netpay = domainImplementation.netpay(grossTotal, employee_pf_contribution, employee_esi_contribution);
             Long grossDed = domainImplementation.grossDed(employee_pf_contribution, employee_esi_contribution);
-            Long nettakehome = domainImplementation.nettakehome(grossTotal, grossDed);
+            Long nettakehome = domainImplementation.netTakeHome(grossTotal, grossDed);
             Long difference = domainImplementation.difference(nettakehome, netpay);
-            Long ptgross = domainImplementation.ptgross(netpay, grossDed);
-            Long homerentallowance = domainImplementation.homerentallowance(basic_ctc, bonus_ctc, grossDed, netpay, branchDto.getHra_per());
+            Long ptgross = domainImplementation.ptGross(netpay, grossDed);
+            Long homerentallowance = domainImplementation.homeRentAllowance(basic_ctc, bonus_ctc, grossDed, netpay, branchDto.getHra_per());
 
             System.out.println("5");
 
@@ -140,7 +140,7 @@ public class CurdImplementation implements Curd {
     public CtcDto findUserDetail(String ecode) throws UserNotRegistered {                                      //check...
 
         if (ctcRepository.existsById(ecode)) {
-               ctcDto.setEcode(ecode);
+            ctcDto.setEcode(ecode);
 
             rabbitMQSender.send(ctcRepository.findByEcode(ecode));
 

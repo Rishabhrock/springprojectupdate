@@ -19,15 +19,14 @@ import javax.persistence.Table;
 @Repository
 public class BranchDto {
 
-        @Id
-        String state;
-        @Column
-        String state_code;
-        @Column
-        Long minimum_wages;
-        @Column
-        Long hra_per;
-
+    @Id
+    String state;
+    @Column
+    String state_code;
+    @Column
+    Long minimum_wages;
+    @Column
+    Long hra_per;
 
 
 }

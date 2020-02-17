@@ -19,7 +19,6 @@ public class Controller {
     Curd curd;
 
 
-
     @Autowired
     RabbitMQSender rabbitMQSender;
 
@@ -33,8 +32,8 @@ public class Controller {
     }
 
 
-     @RequestMapping("ctc/{ctc}/{state}/{ecode}")
-     @ResponseStatus(HttpStatus.ACCEPTED)
+    @RequestMapping("ctc/{ctc}/{state}/{ecode}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public CtcDto ctc_page(@PathVariable Long ctc, @PathVariable String state, @PathVariable String ecode) throws UserNotRegistered {
         return curd.ctc_page(ctc, state, ecode);
     }
@@ -59,6 +58,6 @@ public class Controller {
 
     @DeleteMapping("employee/{ecode}")
     public ResponseEntity<Object> deleteUser(@PathVariable String ecode) throws UserNotRegistered {
-        return new ResponseEntity<>(curd.deleteUser(ecode),HttpStatus.OK);
+        return new ResponseEntity<>(curd.deleteUser(ecode), HttpStatus.OK);
     }
 }

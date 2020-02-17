@@ -7,12 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-
 public interface Curd {
 
     CtcDto newUser(String Ename, String Ecode) throws UserAlreadyExits;
 
-    CtcDto ctc_page(Long ctc,String state,String ecode) throws UserNotRegistered;
+    CtcDto ctc_page(Long ctc, String state, String ecode) throws UserNotRegistered;
 
     public CtcDto findUserDetail(String ecode) throws UserNotRegistered;
 

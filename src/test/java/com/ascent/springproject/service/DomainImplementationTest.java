@@ -22,7 +22,7 @@ class DomainImplementationTest {
     void basic_ctc() {
 
 
-        Long val = domain.basic_ctc(15509L, 9171L);
+        Long val = domain.basicCtc(15509L, 9171L);
         assertEquals(9171, val);
 
     }
@@ -32,7 +32,7 @@ class DomainImplementationTest {
 
 
         try {
-            Long val = domain.basic_ctc((15509L) / 0, (9171L) / 0);
+            Long val = domain.basicCtc((15509L) / 0, (9171L) / 0);
             assertEquals(9171, val);
         } catch (ArithmeticException e) {
             System.out.println("/ by zero ArithmeticException");
@@ -44,7 +44,7 @@ class DomainImplementationTest {
     @Test
     void bonus_ctc() {
 
-        Long val = domain.bonus_ctc(9171L);
+        Long val = domain.bonusCtc(9171L);
         assertEquals(764, val);
     }
 
@@ -54,7 +54,7 @@ class DomainImplementationTest {
         try {
 
 
-            Long val = domain.bonus_ctc(Long.valueOf(null));
+            Long val = domain.bonusCtc(Long.valueOf(null));
             assertEquals(0, val, "Should give an NumberFormatExcception");
 
         } catch (NumberFormatException e1) {
@@ -66,7 +66,7 @@ class DomainImplementationTest {
     @Test
     void employer_pf_contribution() {
 
-        Long val = domain.employer_pf_contribution(9171L);
+        Long val = domain.employerPfContribution(9171L);
         assertEquals(1100, val);
     }
 
@@ -76,7 +76,7 @@ class DomainImplementationTest {
         try {
 
 
-            Long val = domain.employer_pf_contribution(Long.valueOf(null));
+            Long val = domain.employerPfContribution(Long.valueOf(null));
             assertEquals(0, val, "Should give an NumberFormatExcception");
 
         } catch (NumberFormatException e1) {
@@ -89,7 +89,7 @@ class DomainImplementationTest {
     @Test
     void gratuity_from_ctc() {
 
-        Long val = domain.gratuity_from_ctc(9171L);
+        Long val = domain.gratuityFromCtc(9171L);
         assertEquals(441, val);
     }
 
@@ -98,7 +98,7 @@ class DomainImplementationTest {
         try {
 
 
-            Long val = domain.gratuity_from_ctc(9171L / 0);
+            Long val = domain.gratuityFromCtc(9171L / 0);
             assertEquals(764, val);
             //fail("should have thrown an Exception");
         } catch (ArithmeticException e) {
@@ -110,7 +110,7 @@ class DomainImplementationTest {
     @Test
     void gross_total() {
 
-        Long val = domain.gross_total(15509L, 1100L, 441L);
+        Long val = domain.grossTotal(15509L, 1100L, 441L);
         assertEquals(13335, val);
 
     }
@@ -119,7 +119,7 @@ class DomainImplementationTest {
     void gross_total_exception() {
         try {
 
-            Long val = domain.gross_total(15509L / 0, 1100L, 441L);
+            Long val = domain.grossTotal(15509L / 0, 1100L, 441L);
             assertEquals(13335, val);
         } catch (ArithmeticException e) {
             System.out.println("/ by 0 ArithmeticExceion");
@@ -131,7 +131,7 @@ class DomainImplementationTest {
 
     @Test
     void employer_esi_contribution() {
-        Long val = domain.employee_esi_contribution(13335L);                   //check
+        Long val = domain.employeeEsiContribution(13335L);                   //check
         assertEquals(233, val);
     }
 
@@ -140,7 +140,7 @@ class DomainImplementationTest {
 
         try {
 
-            Long val = domain.employee_esi_contribution(13335L / 0);      //check
+            Long val = domain.employeeEsiContribution(13335L / 0);      //check
             assertEquals(233, val);
         } catch (ArithmeticException e) {
             System.out.println("/ by 0 ArithmeticExceion");
@@ -152,7 +152,7 @@ class DomainImplementationTest {
     @Test
     void employee_pf_contribution() {
 
-        Long val = domain.employee_pf_contribution(9171L);
+        Long val = domain.employeePfContribution(9171L);
         assertEquals(1100, val);
 
     }
@@ -164,7 +164,7 @@ class DomainImplementationTest {
         try {
 
 
-            Long val = domain.employee_pf_contribution(Long.valueOf(null));
+            Long val = domain.employeePfContribution(Long.valueOf(null));
             assertEquals(0, val, "Should give an NumberFormatExcception");
 
         } catch (NumberFormatException e1) {
@@ -176,7 +176,7 @@ class DomainImplementationTest {
     @Test
     void employee_esi_contribution() {
 
-        Long val = domain.employee_esi_contribution(13335L);
+        Long val = domain.employeeEsiContribution(13335L);
         assertEquals(233, val);
     }
 
@@ -184,7 +184,7 @@ class DomainImplementationTest {
     void employee_esi_contribution_exception() {
         try {
 
-            Long val = domain.employee_esi_contribution(13335L / 0);
+            Long val = domain.employeeEsiContribution(13335L / 0);
             assertEquals(233, val);
         } catch (ArithmeticException e) {
             System.out.println("/ by 0 ArithmeticExceion");
@@ -219,7 +219,7 @@ class DomainImplementationTest {
     @Test
     void homerentallowance() {
 
-        Long val = domain.homerentallowance(9171L, 764L, 1334L, 12002L, 50L);
+        Long val = domain.homeRentAllowance(9171L, 764L, 1334L, 12002L, 50L);
         assertEquals(3401, val);
     }
 
@@ -229,7 +229,7 @@ class DomainImplementationTest {
 
         try {
 
-            Long val = domain.homerentallowance(9171L / 0, 764L, 1334L, 12002L, 50L);
+            Long val = domain.homeRentAllowance(9171L / 0, 764L, 1334L, 12002L, 50L);
             assertEquals(3401, val);
         } catch (ArithmeticException e) {
             System.out.println("/ by 0 ArithmeticExceion");
@@ -261,7 +261,7 @@ class DomainImplementationTest {
     @Test
     void nettakehome() {
 
-        Long val = domain.nettakehome(13335L, 1334L);
+        Long val = domain.netTakeHome(13335L, 1334L);
         assertEquals(12001, val);
     }
 
@@ -270,7 +270,7 @@ class DomainImplementationTest {
 
         try {
 
-            Long val = domain.nettakehome(13335L / 0, 1334L / 0);
+            Long val = domain.netTakeHome(13335L / 0, 1334L / 0);
             assertEquals(12001, val);
         } catch (ArithmeticException e) {
             System.out.println("/ by 0 ArithmeticExceion");
@@ -288,7 +288,7 @@ class DomainImplementationTest {
     @Test
     void ptgross() {
 
-        Long val = domain.ptgross(12002L, 1334L);
+        Long val = domain.ptGross(12002L, 1334L);
         assertEquals(13336, val);
     }
 
