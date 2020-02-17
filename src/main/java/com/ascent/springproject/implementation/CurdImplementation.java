@@ -40,6 +40,7 @@ public class CurdImplementation implements Curd {
             ctcRepository.save(ctcDto);
             rabbitMQSender.send(ctcDto);
             return ctcDto;
+
         }
     }
 
@@ -125,6 +126,7 @@ public class CurdImplementation implements Curd {
             System.out.println("8");
             mv.setViewName("ctc_detail");
             System.out.println("9");
+            rabbitMQSender.send(ctcRepository.getOne(ecode));
             return ctcRepository.getOne(ecode);
 
         } else {
@@ -155,13 +157,17 @@ public class CurdImplementation implements Curd {
                 .map(dataBaseImplementaion1 -> {
                     dataBaseImplementaion1.setEname(ctcDto.getEname());
                     //employee.setRole(newEmployee.getRole());
-                    return ctcRepository.save(dataBaseImplementaion1);
-                })
-                .orElseGet(() -> {
+                    rabbitMQSender.send(ctcRepository.save(dataBaseImplementaion1));
 
-                    ctcDto.setEcode(ecode);
-                    return ctcRepository.save(ctcDto);
-                }));
+                    return ctcRepository.save(dataBaseImplementaion1);
+                }).orElse(null)
+//                .orElseGet(() -> {
+//
+//                    ctcDto.setEcode(ecode);
+//                    rabbitMQSender.send(ctcRepository.save(ctcDto));
+//                    return ctcRepository.save(ctcDto);
+//                })
+        );
     }
 
     @Override
@@ -171,6 +177,7 @@ public class CurdImplementation implements Curd {
             System.out.println("inside delete");
             CtcDto a = ctcRepository.getOne(ecode);
             ctcRepository.delete(a);
+            rabbitMQSender.sendDeleteMessage("Employee Record is Deleted");
             return "Employee deleted";
         } else {
             throw new UserNotRegistered("User is not Registed in portal");

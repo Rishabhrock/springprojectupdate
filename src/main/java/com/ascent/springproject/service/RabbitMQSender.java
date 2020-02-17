@@ -24,4 +24,11 @@ public class RabbitMQSender {
         System.out.println("Send msg = " + ctcDto);
 
     }
+
+    public void sendDeleteMessage(String message) {
+        rabbitTemplate.convertAndSend(exchange, routingkey, message);
+        System.out.println("Send msg = " + message);
+        //return Employee deleted
+    }
+
 }

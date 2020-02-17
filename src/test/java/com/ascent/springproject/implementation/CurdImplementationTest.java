@@ -7,6 +7,7 @@ import com.ascent.springproject.model.CtcDto;
 import com.ascent.springproject.repository.BranchRepository;
 import com.ascent.springproject.repository.CtcRepository;
 import com.ascent.springproject.service.DomainImplementation;
+import com.ascent.springproject.service.RabbitMQSender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -35,6 +36,8 @@ class CurdImplementationTest {
     DomainImplementation domainImplementation;
 
     @MockBean
+    RabbitMQSender rabbitMQSender;
+    @MockBean
     BranchDto branchDto;
 
 
@@ -49,6 +52,7 @@ class CurdImplementationTest {
         branchRepository = org.mockito.Mockito.mock(BranchRepository.class);
         domainImplementation = org.mockito.Mockito.mock(DomainImplementation.class);
         branchDto = org.mockito.Mockito.mock(BranchDto.class);
+        rabbitMQSender = org.mockito.Mockito.mock(RabbitMQSender.class);
     }
 
     @Test
@@ -57,6 +61,7 @@ class CurdImplementationTest {
         MockitoAnnotations.initMocks(this);
         CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
         when(ctcRepository.existsById("Rishabhkr")).thenReturn(false);
+
       //  System.out.println(ctcRepository.existsById("RishabhKrdfdf"));
         when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
         CtcDto ctcDto1 = curdImplementation.newUser("Rishabhkr","Rishabhkr");
