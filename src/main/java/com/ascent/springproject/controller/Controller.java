@@ -4,6 +4,7 @@ import com.ascent.springproject.exception.UserAlreadyExits;
 import com.ascent.springproject.exception.UserNotRegistered;
 import com.ascent.springproject.implementation.Curd;
 import com.ascent.springproject.model.CtcDto;
+import com.ascent.springproject.service.RabbitMQSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,11 +19,16 @@ public class Controller {
     Curd curd;
 
 
+
+    @Autowired
+    RabbitMQSender rabbitMQSender;
+
     @PostMapping("employee/{Ename}/{Ecode}")
 
     public ResponseEntity<CtcDto> newUser(@PathVariable(value = "Ename") String Ename, @PathVariable(value = "Ename") String Ecode) throws UserAlreadyExits {
         System.out.println(Ename);
         System.out.println(Ecode);
+
         return new ResponseEntity(curd.newUser(Ename, Ecode), HttpStatus.OK);
     }
 

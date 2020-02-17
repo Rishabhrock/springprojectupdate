@@ -56,13 +56,32 @@ class CurdImplementationTest {
 
         MockitoAnnotations.initMocks(this);
         CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
-        when(ctcRepository.existsById("Rishabhkrr")).thenReturn(false);
+        when(ctcRepository.existsById("Rishabhkr")).thenReturn(false);
       //  System.out.println(ctcRepository.existsById("RishabhKrdfdf"));
         when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
         CtcDto ctcDto1 = curdImplementation.newUser("Rishabhkr","Rishabhkr");
         assertEquals(ctcDto,ctcDto1);
 
     }
+
+    @Test
+    void newUserException() throws UserAlreadyExits {
+        MockitoAnnotations.initMocks(this);
+        try {
+            //MockitoAnnotations.initMocks(this);
+            CtcDto ctcDto = new CtcDto("Rishabhkr", "Rishabhkr");
+            when(ctcRepository.existsById("Rishabhkr")).thenReturn(true);
+            //  System.out.println(ctcRepository.existsById("RishabhKrdfdf"));
+            when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
+            CtcDto ctcDto1 = curdImplementation.newUser("Rishabhkr", "Rishabhkr");
+            assertEquals(ctcDto, ctcDto1);
+        }
+        catch (UserAlreadyExits e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 
     @Test
     void ctc_page() throws UserNotRegistered {
@@ -132,12 +151,30 @@ class CurdImplementationTest {
     void findUserDetail() throws UserNotRegistered {
         MockitoAnnotations.initMocks(this);
         CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
-        when(ctcRepository.existsById("Rishabhkr")).thenReturn(false);
+        when(ctcRepository.existsById("Rishabhkr")).thenReturn(true);
         when(ctcRepository.findByEcode("Rishabhkr")).thenReturn(ctcDto);
 
        CtcDto ctcDto1 = curdImplementation.findUserDetail("Rishabhkr");
         assertEquals(ctcDto,ctcDto1);
     }
+
+    @Test
+    void findUserDetails()
+    {
+        MockitoAnnotations.initMocks(this);
+        try {
+            CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
+            when(ctcRepository.existsById("Rishabhkr")).thenReturn(false);
+            when(ctcRepository.findByEcode("Rishabhkr")).thenReturn(ctcDto);
+
+            CtcDto ctcDto1 = curdImplementation.findUserDetail("Rishabhkr");
+            assertEquals(ctcDto,ctcDto1);
+        }
+         catch (UserNotRegistered userNotRegistered) {
+            userNotRegistered.printStackTrace();
+        }
+    }
+
 
     @Test
     void updateUser() {

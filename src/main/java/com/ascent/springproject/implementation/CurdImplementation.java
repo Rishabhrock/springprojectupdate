@@ -1,6 +1,5 @@
 package com.ascent.springproject.implementation;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.ascent.springproject.exception.UserAlreadyExits;
 import com.ascent.springproject.exception.UserNotRegistered;
 import com.ascent.springproject.model.BranchDto;
@@ -8,6 +7,7 @@ import com.ascent.springproject.model.CtcDto;
 import com.ascent.springproject.repository.BranchRepository;
 import com.ascent.springproject.repository.CtcRepository;
 import com.ascent.springproject.service.DomainImplementation;
+import com.ascent.springproject.service.RabbitMQSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,7 +25,8 @@ public class CurdImplementation implements Curd {
     BranchRepository branchRepository;
     @Autowired
     DomainImplementation domainImplementation;
-
+    @Autowired
+    RabbitMQSender rabbitMQSender;
 
     @Override
     public CtcDto newUser(String Ename, String Ecode) throws UserAlreadyExits {
@@ -37,6 +38,7 @@ public class CurdImplementation implements Curd {
             ctcDto.setEname(Ename);
             ctcDto.setEcode(Ecode);
             ctcRepository.save(ctcDto);
+            rabbitMQSender.send(ctcDto);
             return ctcDto;
         }
     }
@@ -136,6 +138,9 @@ public class CurdImplementation implements Curd {
     public CtcDto findUserDetail(String ecode) throws UserNotRegistered {                                      //check...
 
         if (ctcRepository.existsById(ecode)) {
+               ctcDto.setEcode(ecode);
+
+            rabbitMQSender.send(ctcRepository.findByEcode(ecode));
 
             return ctcRepository.findByEcode(ecode);
             //previously i was using  T getOne(ID var1); now changed to custom query
