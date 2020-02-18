@@ -22,35 +22,29 @@ public class Controller {
     @Autowired
     RabbitMQSender rabbitMQSender;
 
-    @PostMapping("employee/{Ename}/{Ecode}")
+    @RequestMapping(value = "employee/{Ename}/{Ecode}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 
-    public ResponseEntity<CtcDto> newUser(@PathVariable(value = "Ename") String Ename, @PathVariable(value = "Ename") String Ecode) throws UserAlreadyExits {
-        System.out.println(Ename);
-        System.out.println(Ecode);
-
-        return new ResponseEntity(curd.newUser(Ename, Ecode), HttpStatus.OK);
+    public ResponseEntity<CtcDto> newUser(@RequestBody CtcDto ctcDto) throws UserAlreadyExits {
+        return new ResponseEntity(curd.newUser(ctcDto), HttpStatus.OK);
     }
 
 
-    @RequestMapping("ctc/{ctc}/{state}/{ecode}")
+    @RequestMapping("employee/{ctc}/{state}/{ecode}/{ename}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public CtcDto ctc_page(@PathVariable Long ctc, @PathVariable String state, @PathVariable String ecode) throws UserNotRegistered {
-        return curd.ctc_page(ctc, state, ecode);
+    public CtcDto ctc_page(@RequestBody CtcDto ctcDto) throws UserNotRegistered {
+        return curd.ctc_page(ctcDto);
     }
 
 
     @RequestMapping(value = "employee/{ecode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 
     public ResponseEntity<Object> findUserDetail(@PathVariable String ecode) throws UserNotRegistered {
-        System.out.println("check begin");
-        System.out.println(curd.findUserDetail(ecode));
-        System.out.println("check ended");
         return new ResponseEntity<>(curd.findUserDetail(ecode), HttpStatus.OK);
     }
 
 
     @PutMapping("employee/{ecode}")
-    public ResponseEntity<CtcDto> updateUser(@PathVariable String ecode, CtcDto ctcDto) {
+    public ResponseEntity<CtcDto> updateUser(@PathVariable String ecode,@RequestBody CtcDto ctcDto) {
 
         return new ResponseEntity<>(curd.updateUser(ecode, ctcDto), HttpStatus.OK);
     }

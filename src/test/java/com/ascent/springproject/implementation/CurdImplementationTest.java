@@ -55,37 +55,37 @@ class CurdImplementationTest {
         rabbitMQSender = org.mockito.Mockito.mock(RabbitMQSender.class);
     }
 
-    @Test
-    void newUser() throws UserAlreadyExits {
+//    @Test
+//    void newUser() throws UserAlreadyExits {
+//
+//        MockitoAnnotations.initMocks(this);
+//        CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
+//        when(ctcRepository.existsById("Rishabhkr")).thenReturn(false);
+//
+//      //  System.out.println(ctcRepository.existsById("RishabhKrdfdf"));
+//        when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
+//        CtcDto ctcDto1 = curdImplementation.newUser("Rishabhkr","Rishabhkr");
+//        assertEquals(ctcDto,ctcDto1);
+//
+//    }
 
-        MockitoAnnotations.initMocks(this);
-        CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
-        when(ctcRepository.existsById("Rishabhkr")).thenReturn(false);
-
-      //  System.out.println(ctcRepository.existsById("RishabhKrdfdf"));
-        when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
-        CtcDto ctcDto1 = curdImplementation.newUser("Rishabhkr","Rishabhkr");
-        assertEquals(ctcDto,ctcDto1);
-
-    }
-
-    @Test
-    void newUserException() throws UserAlreadyExits {
-        MockitoAnnotations.initMocks(this);
-        try {
-            //MockitoAnnotations.initMocks(this);
-            CtcDto ctcDto = new CtcDto("Rishabhkr", "Rishabhkr");
-            when(ctcRepository.existsById("Rishabhkr")).thenReturn(true);
-            //  System.out.println(ctcRepository.existsById("RishabhKrdfdf"));
-            when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
-            CtcDto ctcDto1 = curdImplementation.newUser("Rishabhkr", "Rishabhkr");
-            assertEquals(ctcDto, ctcDto1);
-        }
-        catch (UserAlreadyExits e)
-        {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    void newUserException() throws UserAlreadyExits {
+//        MockitoAnnotations.initMocks(this);
+//        try {
+//            //MockitoAnnotations.initMocks(this);
+//            CtcDto ctcDto = new CtcDto("Rishabhkr", "Rishabhkr");
+//            when(ctcRepository.existsById("Rishabhkr")).thenReturn(true);
+//            //  System.out.println(ctcRepository.existsById("RishabhKrdfdf"));
+//            when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
+//            CtcDto ctcDto1 = curdImplementation.newUser("Rishabhkr", "Rishabhkr");
+//            assertEquals(ctcDto, ctcDto1);
+//        }
+//        catch (UserAlreadyExits e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     @Test

@@ -10,7 +10,7 @@ import com.ascent.springproject.service.DomainImplementation;
 import com.ascent.springproject.service.RabbitMQSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
+
 
 
 @Service
@@ -29,56 +29,33 @@ public class CurdImplementation implements Curd {
     RabbitMQSender rabbitMQSender;
 
     @Override
-    public CtcDto newUser(String Ename, String Ecode) throws UserAlreadyExits {
-        System.out.println(ctcRepository.existsById(Ecode));
-        if (ctcRepository.existsById(Ecode)) {
+    public CtcDto newUser(CtcDto ctcDto) throws UserAlreadyExits {
+
+
+        if (ctcRepository.existsById(ctcDto.getEcode())) {
             throw new UserAlreadyExits("Employee with this Ecode already existed");
         } else {
-            CtcDto ctcDto = new CtcDto();
-            ctcDto.setEname(Ename);
-            ctcDto.setEcode(Ecode);
-            ctcRepository.save(ctcDto);
-            rabbitMQSender.send(ctcDto);
-            return ctcDto;
 
+          //  ctcRepository.save(ctcDto);
+            rabbitMQSender.send(ctcDto);
+            return ctcRepository.save(ctcDto);
         }
+
     }
 
 
     @Override
-    public CtcDto ctc_page(Long ctc, String state, String ecode) throws UserNotRegistered {
+    public CtcDto ctc_page(CtcDto ctcDto) throws UserNotRegistered {
 
+        String ename = ctcDto.getEname();
+        String ecode = ctcDto.getEcode();
+        Long ctc = ctcDto.getCtc();
         if (ctcRepository.existsById(ecode)) {
-            ModelAndView mv = new ModelAndView();
-            System.out.println("1");
-
-            System.out.println("2");
-            ctcDto = ctcRepository.findById(ecode).orElse(null);
-            //   CtcDto ctcDto = new CtcDto();
-            //  CtcDto ctcDto;
-
-            System.out.println(ctcDto + "ctcDto Reference");
-            System.out.println("2.1");
-            assert ctcDto != null;                                 //change on 12th feb during testing commented
-            System.out.println("2.2");
-            //System.out.println(ctcDto.getEname()+"dfdfdfdf");
-            System.out.println(ctcDto);
-            System.out.println(ctcDto.getEname());
-            String ename = ctcDto.getEname();  // changes
-            System.out.println("2.3");
-            System.out.println(ename);
-            System.out.println("2.4");
-            ctcDto.setEname(ename);
-            ctcDto.setCtc(ctc);
-            ctcDto.setLoc(state);
-            ctcDto.setState(state);
-            System.out.println("3");
+          String state = ctcDto.getState();
 
             BranchDto branchDto = branchRepository.findById(state).orElse(null);
 
 
-            System.out.println(branchDto);
-            System.out.println("4");
             assert branchDto != null;
             Long basic_ctc = domainImplementation.basicCtc(ctc, branchDto.getMinimum_wages());
             Long bonus_ctc = domainImplementation.bonusCtc(basic_ctc);
@@ -95,44 +72,13 @@ public class CurdImplementation implements Curd {
             Long ptgross = domainImplementation.ptGross(netpay, grossDed);
             Long homerentallowance = domainImplementation.homeRentAllowance(basic_ctc, bonus_ctc, grossDed, netpay, branchDto.getHra_per());
 
-            System.out.println("5");
-
-            ctcDto.setBasic(basic_ctc);
-            ctcDto.setBonus(bonus_ctc);
-            ctcDto.setEmployer_pf(employer_pf_contribution);
-            ctcDto.setGratuity(gratuity_from_ctc);
-            ctcDto.setGross(grossTotal);
-            ctcDto.setEmployer_esi(employer_esi_contribution);
-            ctcDto.setEmployee_Pf(employee_pf_contribution);
-            ctcDto.setEmployee_esi(employee_esi_contribution);
-            ctcDto.setNet_Pay(netpay);
-            ctcDto.setGross_ded(grossDed);
-            ctcDto.setNet_take_home(nettakehome);
-            ctcDto.setDiff(difference);
-            ctcDto.setPt_gross(ptgross);
-            ctcDto.setHra(homerentallowance);
-            ctcDto.setEcode(ecode);
-
-            System.out.println("6");
-
+            ctcDto = new CtcDto(ecode,ename,state,state,homerentallowance,nettakehome,ctc,basic_ctc,bonus_ctc, 0L,employer_pf_contribution,employer_esi_contribution,gratuity_from_ctc,grossTotal,employee_pf_contribution,employee_esi_contribution, 0L, 0L,grossDed,difference,ptgross,netpay);
             ctcRepository.save(ctcDto);
-
-            System.out.println(basic_ctc);
-            System.out.println(bonus_ctc);
-
-            System.out.println("7");
-
-            mv.addObject(ctcDto);
-            System.out.println("8");
-            mv.setViewName("ctc_detail");
-            System.out.println("9");
             rabbitMQSender.send(ctcRepository.getOne(ecode));
             return ctcRepository.getOne(ecode);
 
         } else {
-            // System.out.println("inside ctc");
             throw new UserNotRegistered("User is not Registed in portal");
-//        return null;
         }
     }
 
@@ -161,12 +107,7 @@ public class CurdImplementation implements Curd {
 
                     return ctcRepository.save(dataBaseImplementaion1);
                 }).orElse(null)
-//                .orElseGet(() -> {
-//
-//                    ctcDto.setEcode(ecode);
-//                    rabbitMQSender.send(ctcRepository.save(ctcDto));
-//                    return ctcRepository.save(ctcDto);
-//                })
+
         );
     }
 
