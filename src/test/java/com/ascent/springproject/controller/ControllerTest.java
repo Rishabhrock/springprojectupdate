@@ -51,19 +51,19 @@ class ControllerTest {
         curd = org.mockito.Mockito.mock(Curd.class);
         mockMvc = standaloneSetup(controller).build();
     }
-//
-//    @Test
-//    void newUser() throws Exception, UserAlreadyExits {
-//
-//        MockitoAnnotations.initMocks(this);
-//        CtcDto ctcDto = new CtcDto("rishabh56","rishabh56");
-//        String Json = objectMapper.writeValueAsString(ctcDto);
-//        System.out.println(Json);
-//        when(curd.newUser("rishabh56","rishabh56")).thenReturn(ctcDto);
-//        MockHttpServletResponse response = mockMvc.perform(post("/employee/rishabh56/rishabh56")).andReturn().getResponse();
-//        assertThat(response.getStatus(),is(HttpStatus.OK.value()));
-//
-//    }
+
+    @Test
+    void newUser() throws Exception, UserAlreadyExits {
+
+        MockitoAnnotations.initMocks(this);
+        CtcDto ctcDto = new CtcDto("rishabh56","rishabh56");
+        String Json = objectMapper.writeValueAsString(ctcDto);
+        System.out.println(Json);
+        when(curd.newUser(ctcDto)).thenReturn(ctcDto);
+        MockHttpServletResponse response = mockMvc.perform(post("/employee/{Ename}/{Ecode}")).andReturn().getResponse();
+        assertThat(response.getStatus(),is(HttpStatus.OK.value()));
+
+    }
 
 //
 //    @Test
@@ -118,4 +118,6 @@ class ControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/employee/rishabh123"))
                 .andExpect(status().isOk());
     }
+
+
 }

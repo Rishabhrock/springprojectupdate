@@ -115,13 +115,6 @@ public class DomainImplementation implements Domain {
         long hra_inter_if;
         long hra;
 
-
-//        Model m = new Model();
-//        m.setSTATE(state);
-//        m.branches();
-        //       Long HRA_PERCENT = hra_per;
-
-
         long hra_calc = netpay_got + gross_ded - basic - bonus_got;
 
         if (hra_calc < 0) {

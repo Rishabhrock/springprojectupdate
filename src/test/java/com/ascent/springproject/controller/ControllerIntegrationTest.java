@@ -70,7 +70,7 @@ class ControllerIntegrationTest {
     void findUserDetail() {
 
         String expected =
-                "{\"ecode\":\"Rishabh033\",\"ename\":\"Rishabh033\",\"loc\":\"Hyderabad\",\"state\":\"Hyderabad\",\"hra\":3400,\"net_take_home\":12002,\"ctc\":15509,\"basic\":9171,\"bonus\":764,\"spll\":0,\"employer_pf\":1100,\"employer_esi\":633,\"gratuity\":441,\"gross\":13335,\"employee_Pf\":1100,\"employee_esi\":233,\"employee_pt\":0,\"employee_lwf\":0,\"gross_ded\":1333,\"diff\":0,\"pt_gross\":13335,\"net_Pay\":12002}";
+                "{\"ecode\":\"Rishabh033\",\"ename\":\"Rishabh033\",\"state\":\"Hyderabad\",\"ctc\":15509,\"map\":{\"Rishabh033\":{\"loc\":\"Hyderabad\",\"state\":\"Hyderabad\",\"hra\":3400,\"net_take_home\":12002,\"ctc\":15509,\"basic\":9171,\"bonus\":764,\"spll\":0,\"employer_pf\":1100,\"employer_esi\":633,\"gratuity\":441,\"gross\":13335,\"employee_Pf\":1100,\"employee_esi\":233,\"employee_pt\":0,\"employee_lwf\":0,\"gross_ded\":1333,\"diff\":0,\"pt_gross\":13335,\"net_Pay\":12002}}}";
 
 
 

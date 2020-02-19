@@ -19,8 +19,8 @@ public class Controller {
     Curd curd;
 
 
-    @Autowired
-    RabbitMQSender rabbitMQSender;
+//    @Autowired
+//    RabbitMQSender rabbitMQSender;
 
     @RequestMapping(value = "employee/{Ename}/{Ecode}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 
