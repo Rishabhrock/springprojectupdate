@@ -9,12 +9,15 @@ import com.ascent.springproject.repository.BranchRepository;
 import com.ascent.springproject.repository.CtcRepository;
 import com.ascent.springproject.service.DomainImplementation;
 import com.ascent.springproject.service.RabbitMQSender;
+import com.sun.istack.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class CurdImplementation implements Curd {
+
+Logger logger = Logger.getLogger(CurdImplementation.class);
 
 
     @Autowired
@@ -30,16 +33,20 @@ public class CurdImplementation implements Curd {
    @Autowired
    CtcDtoData ctcDtoData;
 
+
+
     @Override
     public CtcDto newUser(CtcDto ctcDto) throws UserAlreadyExits {
 
 
         if (ctcRepository.existsById(ctcDto.getEcode())) {
+            logger.info("user already exit please provide other ecode");
             throw new UserAlreadyExits("Employee with this Ecode already existed");
         } else {
 
           //  ctcRepository.save(ctcDto);
             rabbitMQSender.send(ctcDto);
+            logger.info("user created with "+ctcDto);
             return ctcRepository.save(ctcDto);
         }
 

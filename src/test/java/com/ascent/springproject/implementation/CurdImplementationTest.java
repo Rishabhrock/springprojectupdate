@@ -55,37 +55,36 @@ class CurdImplementationTest {
         rabbitMQSender = org.mockito.Mockito.mock(RabbitMQSender.class);
     }
 
-//    @Test
-//    void newUser() throws UserAlreadyExits {
-//
-//        MockitoAnnotations.initMocks(this);
-//        CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
-//        when(ctcRepository.existsById("Rishabhkr")).thenReturn(false);
-//
-//      //  System.out.println(ctcRepository.existsById("RishabhKrdfdf"));
-//        when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
-//        CtcDto ctcDto1 = curdImplementation.newUser("Rishabhkr","Rishabhkr");
-//        assertEquals(ctcDto,ctcDto1);
-//
-//    }
+    @Test
+    void newUser() throws UserAlreadyExits {
 
-//    @Test
-//    void newUserException() throws UserAlreadyExits {
-//        MockitoAnnotations.initMocks(this);
-//        try {
-//            //MockitoAnnotations.initMocks(this);
-//            CtcDto ctcDto = new CtcDto("Rishabhkr", "Rishabhkr");
-//            when(ctcRepository.existsById("Rishabhkr")).thenReturn(true);
-//            //  System.out.println(ctcRepository.existsById("RishabhKrdfdf"));
-//            when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
-//            CtcDto ctcDto1 = curdImplementation.newUser("Rishabhkr", "Rishabhkr");
-//            assertEquals(ctcDto, ctcDto1);
-//        }
-//        catch (UserAlreadyExits e)
-//        {
-//            e.printStackTrace();
-//        }
-//    }
+        MockitoAnnotations.initMocks(this);
+        CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
+        when(ctcRepository.existsById("Rishabhkr")).thenReturn(false);
+
+        when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
+        CtcDto ctcDto1 = curdImplementation.newUser(ctcDto);
+        assertEquals(ctcDto,ctcDto1);
+
+    }
+
+    @Test
+    void newUserException() throws UserAlreadyExits {
+        MockitoAnnotations.initMocks(this);
+        try {
+
+            CtcDto ctcDto = new CtcDto("Rishabhkr", "Rishabhkr");
+            when(ctcRepository.existsById("Rishabhkr")).thenReturn(true);
+            //  System.out.println(ctcRepository.existsById("RishabhKrdfdf"));
+            when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
+            CtcDto ctcDto1 = curdImplementation.newUser(ctcDto);
+            assertEquals(ctcDto, ctcDto1);
+        }
+        catch (UserAlreadyExits e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 
 //    @Test
@@ -153,63 +152,61 @@ class CurdImplementationTest {
 //    }
 
 
-//    // 19th feb
-//    @Test
-//    void findUserDetail() throws UserNotRegistered {
-//        MockitoAnnotations.initMocks(this);
-//        CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
-//        when(ctcRepository.existsById("Rishabhkr")).thenReturn(true);
-//        when(ctcRepository.findByEcode("Rishabhkr")).thenReturn(ctcDto);
-//
-//       CtcDto ctcDto1 = curdImplementation.findUserDetail("Rishabhkr");
-//        assertEquals(ctcDto,ctcDto1);
-//    }
-//
-//    @Test
-//    void findUserDetails()
-//    {
-//        MockitoAnnotations.initMocks(this);
-//        try {
-//            CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
-//            when(ctcRepository.existsById("Rishabhkr")).thenReturn(false);
-//            when(ctcRepository.findByEcode("Rishabhkr")).thenReturn(ctcDto);
-//
-//            CtcDto ctcDto1 = curdImplementation.findUserDetail("Rishabhkr");
-//            assertEquals(ctcDto,ctcDto1);
-//        }
-//         catch (UserNotRegistered userNotRegistered) {
-//            userNotRegistered.printStackTrace();
-//        }
-//    }
-//
-//
-//    @Test
-//    void updateUser() {
-//
-//        MockitoAnnotations.initMocks(this);
-//
-//        CtcDto ctcDto = new CtcDto("123", "as");
-//        CtcDto ctcDto1 = new CtcDto("123", "Ank");
-//        when(ctcRepository.existsById("123")).thenReturn(true);
-//        when(ctcRepository.findById("123")).thenReturn(java.util.Optional.of(ctcDto));
-//        when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
-//
-//        CtcDto ctcDto11 = curdImplementation.updateUser("123",ctcDto1);
-//
-//        assertEquals(ctcDto,ctcDto11);
-//    }
-//
-//    @Test
-//    void deleteUser() throws UserNotRegistered {
-//
-//        MockitoAnnotations.initMocks(this);
-//        CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
-//        when(ctcRepository.existsById("Rishabhkr")).thenReturn(true);
-//        when(ctcRepository.getOne("Rishabhkr")).thenReturn(ctcDto);
-//        String response = curdImplementation.deleteUser("Rishabhkr");
-//        assertEquals("Employee deleted",response);
-//
-//    }
+    @Test
+    void findUserDetail() throws UserNotRegistered {
+        MockitoAnnotations.initMocks(this);
+        CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
+        when(ctcRepository.existsById("Rishabhkr")).thenReturn(true);
+        when(ctcRepository.findByEcode("Rishabhkr")).thenReturn(ctcDto);
 
-    //19th feb
+       CtcDto ctcDto1 = curdImplementation.findUserDetail("Rishabhkr");
+        assertEquals(ctcDto,ctcDto1);
+    }
+
+    @Test
+    void findUserDetails()
+    {
+        MockitoAnnotations.initMocks(this);
+        try {
+            CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
+            when(ctcRepository.existsById("Rishabhkr")).thenReturn(false);
+            when(ctcRepository.findByEcode("Rishabhkr")).thenReturn(ctcDto);
+
+            CtcDto ctcDto1 = curdImplementation.findUserDetail("Rishabhkr");
+            assertEquals(ctcDto,ctcDto1);
+        }
+         catch (UserNotRegistered userNotRegistered) {
+            userNotRegistered.printStackTrace();
+        }
+    }
+
+
+    @Test
+    void updateUser() {
+
+        MockitoAnnotations.initMocks(this);
+
+        CtcDto ctcDto = new CtcDto("123", "as");
+        CtcDto ctcDto1 = new CtcDto("123", "Ank");
+        when(ctcRepository.existsById("123")).thenReturn(true);
+        when(ctcRepository.findById("123")).thenReturn(java.util.Optional.of(ctcDto));
+        when(ctcRepository.save(ctcDto)).thenReturn(ctcDto);
+
+        CtcDto ctcDto11 = curdImplementation.updateUser("123",ctcDto1);
+
+        assertEquals(ctcDto,ctcDto11);
+    }
+
+    @Test
+    void deleteUser() throws UserNotRegistered {
+
+        MockitoAnnotations.initMocks(this);
+        CtcDto ctcDto = new CtcDto("Rishabhkr","Rishabhkr");
+        when(ctcRepository.existsById("Rishabhkr")).thenReturn(true);
+        when(ctcRepository.getOne("Rishabhkr")).thenReturn(ctcDto);
+        String response = curdImplementation.deleteUser("Rishabhkr");
+        assertEquals("Employee deleted",response);
+
+    }
+
 }

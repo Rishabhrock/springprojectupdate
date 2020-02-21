@@ -41,9 +41,7 @@ class ControllerIntegrationTest {
         employee.setEname("Rishabh033");
 
         ResponseEntity<String> responseEntity = this.restTemplate
-                .postForEntity("http://localhost:" + this.port + "/employee/"+employee.getEname()
-                                +"/"+employee.getEcode()
-                        , employee, String.class);
+                .postForEntity("http://localhost:" + this.port + "/employee-ename-ecode", employee, String.class);
         assertEquals(200, responseEntity.getStatusCodeValue());
     }
 
@@ -57,9 +55,7 @@ class ControllerIntegrationTest {
         employee.setState("Hyderabad");
 
         ResponseEntity<String> responseEntity = this.restTemplate
-                .postForEntity("http://localhost:" + this.port + "/employee/"+employee.getCtc()
-                                +"/"+employee.getState()+"/"+employee.getEcode()+"/"+employee.getEname()
-                        , employee, String.class);
+                .postForEntity("http://localhost:" + this.port + "/employee-ctc-calculation", employee, String.class);
         assertEquals(202, responseEntity.getStatusCodeValue());
 
 

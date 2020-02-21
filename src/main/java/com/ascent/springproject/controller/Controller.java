@@ -22,14 +22,14 @@ public class Controller {
 //    @Autowired
 //    RabbitMQSender rabbitMQSender;
 
-    @RequestMapping(value = "employee/{Ename}/{Ecode}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "employee-ename-ecode", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 
     public ResponseEntity<CtcDto> newUser(@RequestBody CtcDto ctcDto) throws UserAlreadyExits {
         return new ResponseEntity(curd.newUser(ctcDto), HttpStatus.OK);
     }
 
 
-    @RequestMapping("employee/{ctc}/{state}/{ecode}/{ename}")
+    @RequestMapping("employee-ctc-calculation")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public CtcDto ctc_page(@RequestBody CtcDto ctcDto) throws UserNotRegistered {
         return curd.ctc_page(ctcDto);

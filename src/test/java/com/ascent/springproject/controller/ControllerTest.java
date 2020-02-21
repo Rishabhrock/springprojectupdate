@@ -17,6 +17,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
@@ -52,62 +53,70 @@ class ControllerTest {
         mockMvc = standaloneSetup(controller).build();
     }
 
+
     @Test
     void newUser() throws Exception, UserAlreadyExits {
 
         MockitoAnnotations.initMocks(this);
-        CtcDto ctcDto = new CtcDto("rishabh56","rishabh56");
-        String Json = objectMapper.writeValueAsString(ctcDto);
-        System.out.println(Json);
-        when(curd.newUser(ctcDto)).thenReturn(ctcDto);
-        MockHttpServletResponse response = mockMvc.perform(post("/employee/{Ename}/{Ecode}")).andReturn().getResponse();
-        assertThat(response.getStatus(),is(HttpStatus.OK.value()));
+        CtcDto ctcDto = new CtcDto("rishabh56", "rishabh56");
+
+        String json = objectMapper.writeValueAsString(ctcDto);
+
+
+        MockHttpServletResponse response = mockMvc.perform(post("/employee-ename-ecode").content(json).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+
+        assertThat(response.getStatus(), is(HttpStatus.OK.value()));
+
 
     }
 
-//
-//    @Test
-//    void ctc_page() throws Exception, UserNotRegistered {
-//
-//        MockitoAnnotations.initMocks(this);
-//        CtcDto ctcDto=new CtcDto("abc123","Rishabh");
-//        when(curd.ctc_page(19967L,"BANGALORE","rishabh","rishabh")).thenReturn(ctcDto);
-//        MockHttpServletResponse response=mockMvc.perform(get("/ctc/19967/BANGALORE/rishabh/rishabh")).andReturn().getResponse();
-//        System.out.println(response.getStatus());
-//        assertThat(response.getStatus(),is(HttpStatus.ACCEPTED.value()));
-//    }
 
+    @Test
+    void ctc_page() throws UserNotRegistered, Exception {
+        MockitoAnnotations.initMocks(this);
+
+        CtcDto ctcDto = new CtcDto("rishabh", "rishabh");
+        when(curd.ctc_page(ctcDto)).thenReturn(ctcDto);
+
+        String json = objectMapper.writeValueAsString(ctcDto);
+
+        MockHttpServletResponse response = mockMvc.perform(post("/employee-ctc-calculation").content(json).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+        assertThat(response.getStatus(), is(HttpStatus.ACCEPTED.value()));
+
+    }
 
     @Test
     void findUserDetail() throws Exception, UserNotRegistered {
 
         MockitoAnnotations.initMocks(this);
-        CtcDto ctcDto=new CtcDto("123","Gunjan");
+        CtcDto ctcDto = new CtcDto("123", "Gunjan");
 
         when(curd.findUserDetail("123")).thenReturn(ctcDto);
-        MockHttpServletResponse response=mockMvc.perform(get("/employee/123")).andReturn().getResponse();
+        MockHttpServletResponse response = mockMvc.perform(get("/employee/123")).andReturn().getResponse();
 
 
-        assertThat(response.getStatus(),is(HttpStatus.OK.value()));
-        assertThat(response.getContentAsString(),is(objectMapper.writeValueAsString(curd.findUserDetail("123"))));
-
-    }
-
-
-    @Test
-    void updateUser() throws Exception {
-
-        MockitoAnnotations.initMocks(this);
-        CtcDto ctcDto=new CtcDto("123","rish");
-        CtcDto ctcDto1=new CtcDto("123","rishabh");
-        lenient().when(curd.updateUser("123",ctcDto)).thenReturn(ctcDto);
-        MockHttpServletResponse response=mockMvc.perform(MockMvcRequestBuilders.put("/employee/123").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
-        System.out.println(response.getStatus());
-        System.out.println(objectMapper.writeValueAsString(curd.updateUser("123",ctcDto)));
-        System.out.println(response.getContentAsString());
-        assertThat(response.getStatus(),is(HttpStatus.OK.value()));
+        assertThat(response.getStatus(), is(HttpStatus.OK.value()));
+        assertThat(response.getContentAsString(), is(objectMapper.writeValueAsString(curd.findUserDetail("123"))));
 
     }
+
+//
+//    @Test
+//    void updateUser() throws Exception {
+//
+//        MockitoAnnotations.initMocks(this);
+//
+//        CtcDto ctcDto = new CtcDto("123", "rish", "Hyderabad", 456L);
+//        CtcDto ctcDto1 = new CtcDto("123", "rishabh", "Hyderabad", 456L);
+//        lenient().when(curd.updateUser("123", ctcDto)).thenReturn(ctcDto);
+//        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/employee/123").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+//        System.out.println(response.getStatus());
+//        System.out.println(objectMapper.writeValueAsString(curd.updateUser("123", ctcDto)));
+//        System.out.println(response.getContentAsString());
+//        assertThat(response.getStatus(), is(HttpStatus.OK.value()));
+//
+//    }
+
 
 
     @Test

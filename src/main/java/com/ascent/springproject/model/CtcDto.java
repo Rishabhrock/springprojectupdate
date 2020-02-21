@@ -39,4 +39,12 @@ public class CtcDto {
         this.ecode = ecode;
         this.ename = ename;
     }
+
+    public CtcDto(String ecode, String ename, String state, Long ctc) {
+        this.ecode = ecode;
+        this.ename = ename;
+        this.state = state;
+        this.ctc = ctc;
+
+    }
 }
