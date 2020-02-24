@@ -1,0 +1,21 @@
+components:
+  - loc
+  - state
+  - hra
+  - net_take_home
+  - ctc
+  - basic
+  - bonus
+  - spll
+  - employer_pf
+  - employer_esi
+  - gratuity
+  - gross
+  - employee_Pf
+  - employee_esi
+  - employee_pt
+  - employee_lwf
+  - gross_ded
+  - diff
+  - pt_gross
+  - net_Pay

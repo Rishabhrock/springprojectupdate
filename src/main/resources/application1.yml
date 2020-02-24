@@ -1,0 +1,46 @@
+ascent:
+    rabbitmq:
+        exchange: ascent.exchange
+        queue: ascent.queue
+        routingkey: ascent.routingkey
+management:
+    endpoint:
+        health:
+            show-details: always
+        shutdown:
+            enabled: true
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+    port: 9000
+    security:
+        enabled: false
+server:
+    port: 8081
+spring:
+    application:
+        name: Bootstrap Spring Boot
+    datasource:
+        password: system
+        url: jdbc:postgresql://localhost:5432/rishabh
+        username: rishabh
+    jpa:
+        hibernate:
+            ddl-auto: update
+            show-sql: true
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                temp:
+                    use_jdbc_metadata_defaults: false
+    rabbitmq:
+        host: localhost
+        password: guest
+        port: 5672
+        username: guest
+    thymeleaf:
+        cache: false
+        enabled: true
+        prefix: classpath:/templates/
+        suffix: .html
