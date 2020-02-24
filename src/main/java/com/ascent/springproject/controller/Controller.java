@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 public class Controller {
 
@@ -31,7 +33,7 @@ public class Controller {
 
     @RequestMapping("employee-ctc-calculation")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public CtcDto ctc_page(@RequestBody CtcDto ctcDto) throws UserNotRegistered {
+    public CtcDto ctc_page(@RequestBody CtcDto ctcDto) throws UserNotRegistered, IllegalAccessException, IOException, InstantiationException {
         return curd.ctc_page(ctcDto);
     }
 

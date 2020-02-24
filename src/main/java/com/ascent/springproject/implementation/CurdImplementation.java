@@ -10,8 +10,13 @@ import com.ascent.springproject.repository.CtcRepository;
 import com.ascent.springproject.service.DomainImplementation;
 import com.ascent.springproject.service.RabbitMQSender;
 import com.sun.istack.logging.Logger;
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.IOException;
 
 
 @Service
@@ -54,7 +59,13 @@ Logger logger = Logger.getLogger(CurdImplementation.class);
 
 
     @Override
-    public CtcDto ctc_page(CtcDto ctcDto) throws UserNotRegistered {
+    public CtcDto ctc_page(CtcDto ctcDto) throws UserNotRegistered, IOException, IllegalAccessException, InstantiationException {
+
+
+		Class scriptClass = new GroovyClassLoader().parseClass( new File("/home/rishabh/Downloads/springproject/groovy/com/ascent/groovyfile/CtcCalculation.groovy")) ;
+		GroovyObject scriptInstance = (GroovyObject) scriptClass.newInstance() ;
+
+		//Long a =(Long) scriptInstance.invokeMethod("sum", new Object[] {  });
 
         String ename = ctcDto.getEname();
         String ecode = ctcDto.getEcode();
@@ -69,6 +80,8 @@ Logger logger = Logger.getLogger(CurdImplementation.class);
 
 
             assert branchDto != null;
+            Long a =(Long) scriptInstance.invokeMethod("basicCtc", new Object[] { ctc,branchDto.getMinimum_wages() });
+            System.out.println(a+"fdfdfdfdfdfdfdfd");
             Long basic_ctc = domainImplementation.basicCtc(ctc, branchDto.getMinimum_wages());
             Long bonus_ctc = domainImplementation.bonusCtc(basic_ctc);
             Long employer_pf_contribution = domainImplementation.employerPfContribution(basic_ctc);

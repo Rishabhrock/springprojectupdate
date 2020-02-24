@@ -6,12 +6,14 @@ import com.ascent.springproject.model.CtcDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.IOException;
+
 
 public interface Curd {
 
     CtcDto newUser(CtcDto ctcDto) throws UserAlreadyExits;
 
-    CtcDto ctc_page(CtcDto ctcDto) throws UserNotRegistered;
+    CtcDto ctc_page(CtcDto ctcDto) throws UserNotRegistered, IOException, IllegalAccessException, InstantiationException;
 
     public CtcDto findUserDetail(String ecode) throws UserNotRegistered;
 
