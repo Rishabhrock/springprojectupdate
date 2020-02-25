@@ -80,22 +80,36 @@ Logger logger = Logger.getLogger(CurdImplementation.class);
 
 
             assert branchDto != null;
-            Long a =(Long) scriptInstance.invokeMethod("basicCtc", new Object[] { ctc,branchDto.getMinimum_wages() });
-            System.out.println(a+"fdfdfdfdfdfdfdfd");
-            Long basic_ctc = domainImplementation.basicCtc(ctc, branchDto.getMinimum_wages());
-            Long bonus_ctc = domainImplementation.bonusCtc(basic_ctc);
-            Long employer_pf_contribution = domainImplementation.employerPfContribution(basic_ctc);
-            Long gratuity_from_ctc = domainImplementation.gratuityFromCtc(basic_ctc);
-            Long grossTotal = domainImplementation.grossTotal(ctc, employer_pf_contribution, gratuity_from_ctc);
-            Long employer_esi_contribution = domainImplementation.employerEsiContribution(grossTotal);
-            Long employee_pf_contribution = domainImplementation.employeePfContribution(basic_ctc);
-            Long employee_esi_contribution = domainImplementation.employeeEsiContribution(grossTotal);
-            Long netpay = domainImplementation.netpay(grossTotal, employee_pf_contribution, employee_esi_contribution);
-            Long grossDed = domainImplementation.grossDed(employee_pf_contribution, employee_esi_contribution);
-            Long nettakehome = domainImplementation.netTakeHome(grossTotal, grossDed);
-            Long difference = domainImplementation.difference(nettakehome, netpay);
-            Long ptgross = domainImplementation.ptGross(netpay, grossDed);
-            Long homerentallowance = domainImplementation.homeRentAllowance(basic_ctc, bonus_ctc, grossDed, netpay, branchDto.getHra_per());
+            Long basic_ctc =(Long) scriptInstance.invokeMethod("basicCtc", new Object[] { ctc,branchDto.getMinimum_wages() });
+            Long bonus_ctc =(Long) scriptInstance.invokeMethod("bonusCtc", new Object[] { basic_ctc});
+            Long employer_pf_contribution=(Long) scriptInstance.invokeMethod("employerPfContribution", new Object[] { basic_ctc});
+            Long gratuity_from_ctc =(Long) scriptInstance.invokeMethod("gratuityFromCtc", new Object[] {basic_ctc});
+            Long grossTotal =(Long) scriptInstance.invokeMethod("grossTotal", new Object[] {ctc, employer_pf_contribution, gratuity_from_ctc});
+            Long employer_esi_contribution =(Long) scriptInstance.invokeMethod("employerEsiContribution", new Object[] {grossTotal});
+            Long employee_pf_contribution =(Long) scriptInstance.invokeMethod("employeePfContribution", new Object[] { basic_ctc});
+            Long employee_esi_contribution =(Long) scriptInstance.invokeMethod("employeeEsiContribution", new Object[] {grossTotal});
+            Long netpay =(Long) scriptInstance.invokeMethod("netpay", new Object[] {grossTotal, employee_pf_contribution, employee_esi_contribution});
+            Long grossDed = (Long) scriptInstance.invokeMethod("grossDed", new Object[] {employee_pf_contribution, employee_esi_contribution});
+            Long nettakehome =(Long) scriptInstance.invokeMethod("netTakeHome", new Object[] {grossTotal, grossDed});
+            Long difference =(Long) scriptInstance.invokeMethod("difference", new Object[] {nettakehome, netpay});
+            Long ptgross =(Long) scriptInstance.invokeMethod("ptGross", new Object[] {netpay, grossDed});
+            Long homerentallowance =(Long) scriptInstance.invokeMethod("homeRentAllowance", new Object[] {basic_ctc, bonus_ctc, grossDed, netpay, branchDto.getHra_per()});
+
+
+//            Long basic_ctc = domainImplementation.basicCtc(ctc, branchDto.getMinimum_wages());
+//            Long bonus_ctc = domainImplementation.bonusCtc(basic_ctc);
+//            Long employer_pf_contribution = domainImplementation.employerPfContribution(basic_ctc);
+//            Long gratuity_from_ctc = domainImplementation.gratuityFromCtc(basic_ctc);
+//            Long grossTotal = domainImplementation.grossTotal(ctc, employer_pf_contribution, gratuity_from_ctc);
+//            Long employer_esi_contribution = domainImplementation.employerEsiContribution(grossTotal);
+//            Long employee_pf_contribution = domainImplementation.employeePfContribution(basic_ctc);
+//            Long employee_esi_contribution = domainImplementation.employeeEsiContribution(grossTotal);
+//            Long netpay = domainImplementation.netpay(grossTotal, employee_pf_contribution, employee_esi_contribution);
+//            Long grossDed = domainImplementation.grossDed(employee_pf_contribution, employee_esi_contribution);
+//            Long nettakehome = domainImplementation.netTakeHome(grossTotal, grossDed);
+//            Long difference = domainImplementation.difference(nettakehome, netpay);
+//            Long ptgross = domainImplementation.ptGross(netpay, grossDed);
+//            Long homerentallowance = domainImplementation.homeRentAllowance(basic_ctc, bonus_ctc, grossDed, netpay, branchDto.getHra_per());
 
        //   ctcDto = new CtcDto(ecode,ename,state,state,homerentallowance,nettakehome,ctc,basic_ctc,bonus_ctc, 0L,employer_pf_contribution,employer_esi_contribution,gratuity_from_ctc,grossTotal,employee_pf_contribution,employee_esi_contribution, 0L, 0L,grossDed,difference,ptgross,netpay);
             ctcDtoData = new CtcDtoData(state,state,homerentallowance,nettakehome,ctc,basic_ctc,bonus_ctc,0L,employer_pf_contribution,employer_esi_contribution,gratuity_from_ctc,grossTotal,employee_pf_contribution,employee_esi_contribution, 0L, 0L,grossDed,difference,ptgross,netpay);

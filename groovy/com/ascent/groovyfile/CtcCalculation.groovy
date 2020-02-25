@@ -1,6 +1,6 @@
 package com.ascent.groovyfile
 
-class CtcCalculation {
+class CtcCalculation implements CtcFields{
 
 
     public Long basicCtc(Long ctc, Long min_wage) {
